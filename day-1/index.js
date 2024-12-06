@@ -10,17 +10,12 @@ for (const line of input.split("\n")) {
     rightList.push(Number(rightLocationID))
 }
 
-// Sort by ascending order
-const sortedLeftList = leftList.map((locationID) => Number(locationID)).sort((a, b) => a - b);
-const sortedRightList = rightList.map((locationID) => Number(locationID)).sort((a, b) => a - b);
+let similarityScore = 0
 
-let differences = []
-
-for (let i = 0; i < sortedLeftList.length; i++) {
-    differences.push(Math.abs(sortedLeftList[i] - sortedRightList[i]))
+for (const leftLocationID of leftList) {
+    const rightListFrequency = rightList.filter((rightLocationID) => leftLocationID === rightLocationID).length
+    
+    similarityScore += leftLocationID * rightListFrequency
 }
 
-// redcue an array down to one item, add all the numbers together
-const totalDistance = differences.reduce((a, b) => a + b, 0)
-
-console.log(totalDistance);
+console.log(similarityScore)
